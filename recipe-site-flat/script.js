@@ -23,7 +23,7 @@ function esc(s){
 function setAdminUI(isAdmin){
   document.body.classList.toggle('is-admin', isAdmin);
   const adminBtn = document.getElementById('adminBtn');
-  adminBtn.textContent = isAdmin ? 'Log out (anja)' : 'Admin';
+  adminBtn.textContent = isAdmin ? 'log out (anja)' : 'edit';
   adminBtn.classList.toggle('logged-in', isAdmin);
 }
 
