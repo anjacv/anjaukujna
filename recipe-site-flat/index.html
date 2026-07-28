@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Recipe Box</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<button id="adminBtn" title="Admin">Admin</button>
+
+<header>
+  <div class="eyebrow">Handwritten &amp; Kept</div>
+  <h1>The Recipe Box</h1>
+  <p>a small collection, worth keeping</p>
+  <div class="divider"></div>
+
+  <div class="search-wrap">
+    <input id="searchInput" type="text" placeholder="Search recipes or ingredients…">
+  </div>
+
+  <div class="file-actions admin-only" id="fileActions">
+    <button id="exportBtn">Export to file</button>
+    <button id="importBtn">Import from file</button>
+    <input type="file" id="importInput" accept="application/json" style="display:none;">
+  </div>
+</header>
+
+<div id="grid"></div>
+
+<button id="addBtn" class="admin-only" title="Add recipe">+</button>
+
+<!-- Add / edit recipe modal (admin only) -->
+<div id="overlay">
+  <div id="modal">
+    <button id="closeX">&times;</button>
+    <h2>Add a recipe</h2>
+    <p class="sub">Keep it simple — just the essentials.</p>
+
+    <label for="fName">Name</label>
+    <input id="fName" type="text" placeholder="Grandma's lemon cake">
+
+    <label for="fIngredients">Ingredients</label>
+    <textarea id="fIngredients" placeholder="Flour, sugar, lemon, eggs, butter..."></textarea>
+
+    <label for="fInstructions">Instructions</label>
+    <textarea id="fInstructions" placeholder="Cream the butter and sugar, then..."></textarea>
+
+    <label for="fTime">Time</label>
+    <input id="fTime" type="text" placeholder="45 min">
+
+    <label for="fPicture">Picture</label>
+    <input id="fPicture" type="file" accept="image/*">
+    <div id="picPreviewWrap"><img id="picPreview" alt="preview"></div>
+
+    <div class="actions">
+      <button id="cancelBtn">Cancel</button>
+      <button id="saveBtn">Save recipe</button>
+    </div>
+  </div>
+</div>
+
+<!-- Recipe detail modal (everyone) -->
+<div id="detailOverlay">
+  <div id="detailModal">
+    <button id="detailClose">&times;</button>
+    <div class="dImgWrap" id="dImgWrap"></div>
+    <div class="dBody">
+      <h2 id="dName"></h2>
+      <p class="dTime" id="dTime"></p>
+      <h4>Ingredients</h4>
+      <p class="dText" id="dIngredients"></p>
+      <h4>Instructions</h4>
+      <p class="dText" id="dInstructions"></p>
+    </div>
+  </div>
+</div>
+
+<!-- Admin login modal -->
+<div id="loginOverlay">
+  <div id="loginModal">
+    <button id="loginClose">&times;</button>
+    <h2>Admin sign in</h2>
+    <p class="sub">Only the admin can add, edit, or remove recipes.</p>
+
+    <label for="loginUser">Username</label>
+    <input id="loginUser" type="text" autocomplete="username">
+
+    <label for="loginPass">Password</label>
+    <input id="loginPass" type="password" autocomplete="current-password">
+
+    <p id="loginError">Incorrect username or password.</p>
+
+    <div class="actions">
+      <button id="loginCancelBtn">Cancel</button>
+      <button id="loginSubmitBtn">Sign in</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
