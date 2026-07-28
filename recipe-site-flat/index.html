@@ -10,6 +10,7 @@
 </head>
 <body>
 
+<button id="favBtn" title="My Favorites">♡ Favorites</button>
 <button id="adminBtn" title="Admin">edit</button>
 
 <header>
@@ -66,6 +67,12 @@
 <div id="detailOverlay">
   <div id="detailModal">
     <button id="detailClose">&times;</button>
+    <button id="detailFavBtn" title="Favorite this recipe">
+  <svg id="detailFavIcon" viewBox="0 0 24 24" width="22" height="22">
+    <path d="M12 21s-7.5-4.9-10-9.3C.3 8.1 2 4.5 5.6 4.1c2-.2 3.7.8 4.4 2.3.7-1.5 2.4-2.5 4.4-2.3 3.6.4 5.3 4 3.6 7.6C19.5 16.1 12 21 12 21z"
+      fill="none" stroke="#dba3a8" stroke-width="1.8"/>
+  </svg>
+</button>
     <div class="dImgWrap" id="dImgWrap"></div>
     <div class="dBody">
       <h2 id="dName"></h2>
