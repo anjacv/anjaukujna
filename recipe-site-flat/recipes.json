@@ -1,1 +1,34 @@
-[]
+[
+  {
+    "id": "1785247643212",
+    "name": "Homemade Chicken Soup",
+    "ingredients": "2 bone-in chicken pieces, 1–2 carrots, ½–1 onion, 1–2 garlic cloves, about 1–1.2 L water, salt, pepper, and a bay leaf. Optional: 1 potato, a handful of noodles or rice, parsley, and a little oil or butter.",
+    "instructions": "Put the chicken in a pot with the water, onion, garlic, salt, pepper, and bay leaf. Bring to a boil, then lower the heat and simmer gently for 25–30 minutes. Add the carrots and potato and cook for another 15 minutes. Add noodles for the last 5–7 minutes, or rice for about 10 minutes. Taste and adjust the seasoning. You can remove the chicken from the bones, shred it, and return the meat to the soup before serving.",
+    "time": "45–55min",
+    "picture": null
+  },
+  {
+    "id": "1785247764934",
+    "name": "Oven-Baked Chicken Thigh & Rice",
+    "ingredients": "1 bone-in chicken thigh, ½ cup rice, 1 cup hot water or broth, 1 tbsp oil or butter, salt, pepper, paprika, and garlic. Optional: carrot, peas, or onion.",
+    "instructions": "Put the uncooked rice, seasonings, hot water, and optional vegetables in a small baking dish. Place the seasoned chicken thigh on top. Cover and bake at 190°C for 30 minutes. Remove the cover and bake for another 15–20 minutes until the chicken is golden and the rice is soft.",
+    "time": "45–50min",
+    "picture": null
+  },
+  {
+    "id": "1785248572093",
+    "name": "Balkan Polenta Proja",
+    "ingredients": "2 eggs, 200 g yogurt or skyr, 150 g cornmeal, 50 g extra cornmeal if needed, 100 g chopped čajna salama, 1 tsp baking powder, a pinch of salt, and optional cheese.",
+    "instructions": "Whisk the eggs with yogurt or skyr. Stir in the cornmeal, baking powder, salt, chopped salami, and optional cheese. Pour into a greased baking dish. Bake at 190°C for about 25–35 minutes until golden on top and firm in the middle. Let it cool slightly before cutting.",
+    "time": "35–40min",
+    "picture": null
+  },
+  {
+    "id": "1785248716638",
+    "name": "Vegeta Chicken Steak",
+    "ingredients": "1 chicken breast or chicken steak, 1–2 tsp Vegeta seasoning, 1 tsp oil, and a small knob of butter if desired.",
+    "instructions": "Pat the chicken dry and season both sides generously with Vegeta. Heat oil in a pan over medium-high heat. Cook the chicken for about 4–6 minutes per side depending on thickness. Lower the heat near the end and add a little butter if desired. Rest for a few minutes before serving.",
+    "time": "15min",
+    "picture": null
+  }
+]
