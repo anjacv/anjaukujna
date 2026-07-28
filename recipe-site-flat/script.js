@@ -12,6 +12,18 @@ let searchTerm = '';
 // The admin token only lives in sessionStorage — it just keeps the admin
 // signed in if they refresh the page, and clears when the tab is closed.
 // It is NOT how recipes are stored; those live on the server.
+let favorites = JSON.parse(localStorage.getItem('recipeFavorites') || '[]');
+let showingFavoritesOnly = false;
+let currentDetailId = null;
+
+function saveFavorites(){
+  localStorage.setItem('recipeFavorites', JSON.stringify(favorites));
+}
+function isFav(id){ return favorites.includes(id); }
+function toggleFav(id){
+  favorites = isFav(id) ? favorites.filter(f => f !== id) : [...favorites, id];
+  saveFavorites();
+}
 let authToken = sessionStorage.getItem('recipeBoxToken') || null;
 
 function esc(s){
@@ -36,7 +48,7 @@ function matchesSearch(r, term){
 
 function render(){
   grid.innerHTML = '';
-  const visible = recipes.filter(r => matchesSearch(r, searchTerm));
+  const visible = recipes.filter(r => matchesSearch(r, searchTerm) && (!showingFavoritesOnly || isFav(r.id)));
 
   if(visible.length === 0){
     grid.innerHTML = `<div class="empty">${recipes.length === 0 ? 'No recipes yet.' : 'Nothing matches your search.'}</div>`;
@@ -66,7 +78,18 @@ function render(){
     `;
     grid.appendChild(card);
   });
+  document.getElementById('favBtn').addEventListener('click', ()=>{
+  showingFavoritesOnly = !showingFavoritesOnly;
+  document.getElementById('favBtn').classList.toggle('active', showingFavoritesOnly);
+  render();
+});
 
+document.getElementById('detailFavBtn').addEventListener('click', ()=>{
+  if(!currentDetailId) return;
+  toggleFav(currentDetailId);
+  document.getElementById('detailFavBtn').classList.toggle('faved', isFav(currentDetailId));
+  if(showingFavoritesOnly) render();
+});
   document.querySelectorAll('.card').forEach(card=>{
     card.addEventListener('click', (e)=>{
       if(e.target.closest('.hover-actions')) return;
@@ -127,6 +150,8 @@ async function apiFetch(url, options = {}){
 
 function openDetail(id){
   const r = recipes.find(x=>x.id === id);
+  currentDetailId = id;
+  document.getElementById('detailFavBtn').classList.toggle('faved', isFav(id));
   if(!r) return;
   document.getElementById('dName').textContent = r.name;
   document.getElementById('dTime').textContent = r.time || '';
