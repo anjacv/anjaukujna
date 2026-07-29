@@ -24,6 +24,36 @@ function toggleFav(id){
   saveFavorites();
 }
 
+// --- Time filter: cycles All -> Short (<20m) -> Medium (20-60m) -> Long (60m+)
+let timeFilter = 'all';
+const timeFilterLabels = { all: 'All times', short: 'Short (<20m)', medium: 'Medium (20–60m)', long: 'Long (60m+)' };
+const timeFilterOrder = ['all', 'short', 'medium', 'long'];
+
+function parseMinutes(timeStr){
+  if(!timeStr) return null;
+  const s = timeStr.toLowerCase();
+  let total = 0;
+  const hrMatch = s.match(/(\d+(?:\.\d+)?)\s*(?:hr|hrs|hour|hours|h)\b/);
+  const minMatch = s.match(/(\d+)\s*(?:min|mins|minute|minutes|m)\b/);
+  if(hrMatch) total += parseFloat(hrMatch[1]) * 60;
+  if(minMatch) total += parseInt(minMatch[1], 10);
+  if(!hrMatch && !minMatch){
+    const bare = s.match(/(\d+)/);
+    if(bare) total = parseInt(bare[1], 10);
+  }
+  return total || null;
+}
+
+function matchesTimeFilter(r){
+  if(timeFilter === 'all') return true;
+  const mins = parseMinutes(r.time);
+  if(mins === null) return false; // un-timed recipes only show under "All times"
+  if(timeFilter === 'short') return mins < 20;
+  if(timeFilter === 'medium') return mins >= 20 && mins <= 60;
+  if(timeFilter === 'long') return mins > 60;
+  return true;
+}
+
 // The admin token only lives in sessionStorage — it just keeps the admin
 // signed in if they refresh the page, and clears when the tab is closed.
 // It is NOT how recipes are stored; those live on the server.
@@ -51,7 +81,11 @@ function matchesSearch(r, term){
 
 function render(){
   grid.innerHTML = '';
-  const visible = recipes.filter(r => matchesSearch(r, searchTerm) && (!showingFavoritesOnly || isFav(r.id)));
+  const visible = recipes.filter(r =>
+    matchesSearch(r, searchTerm) &&
+    (!showingFavoritesOnly || isFav(r.id)) &&
+    matchesTimeFilter(r)
+  );
 
   if(visible.length === 0){
     grid.innerHTML = `<div class="empty">${recipes.length === 0 ? 'No recipes yet.' : 'Nothing matches your search.'}</div>`;
@@ -108,7 +142,7 @@ grid.addEventListener('click', async (e)=>{
   }
 });
 
-// --- Favorites buttons (attached ONCE, not inside render) -----------------
+// --- Favorites button (attached ONCE, not inside render) -------------------
 document.getElementById('favBtn').addEventListener('click', ()=>{
   showingFavoritesOnly = !showingFavoritesOnly;
   document.getElementById('favBtn').classList.toggle('active', showingFavoritesOnly);
@@ -120,6 +154,16 @@ document.getElementById('detailFavBtn').addEventListener('click', ()=>{
   toggleFav(currentDetailId);
   document.getElementById('detailFavBtn').classList.toggle('faved', isFav(currentDetailId));
   if(showingFavoritesOnly) render();
+});
+
+// --- Time filter button (attached ONCE) ------------------------------------
+const timeFilterBtn = document.getElementById('timeFilterBtn');
+timeFilterBtn.addEventListener('click', ()=>{
+  const idx = timeFilterOrder.indexOf(timeFilter);
+  timeFilter = timeFilterOrder[(idx + 1) % timeFilterOrder.length];
+  timeFilterBtn.textContent = timeFilterLabels[timeFilter];
+  timeFilterBtn.classList.toggle('active', timeFilter !== 'all');
+  render();
 });
 
 searchInput.addEventListener('input', (e)=>{
