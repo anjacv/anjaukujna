@@ -42,7 +42,7 @@ body{
 }
 #favBtn{
   position:fixed;
-  top:20px; right:24px;
+  top:20px; left:24px;
   z-index:60;
   font-family:'Jost', sans-serif;
   font-size:12px;
