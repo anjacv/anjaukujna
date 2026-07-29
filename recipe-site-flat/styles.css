@@ -19,6 +19,26 @@ body{
   min-height:100vh;
 }
 
+/* --- Corner buttons: Favorites (left) + Admin/Edit (right) --------------- */
+#favBtn{
+  position:fixed;
+  top:20px; left:24px;
+  z-index:60;
+  font-family:'Jost', sans-serif;
+  font-size:12px;
+  letter-spacing:.05em;
+  border:1px solid var(--beige-deep);
+  background:rgba(255,253,251,.9);
+  backdrop-filter:blur(2px);
+  color:var(--ink-soft);
+  padding:8px 16px;
+  border-radius:20px;
+  cursor:pointer;
+  transition:background .2s, color .2s, border-color .2s;
+}
+#favBtn:hover{ background:var(--beige); color:var(--ink); }
+#favBtn.active{ color:var(--pink-deep); border-color:var(--pink-deep); }
+
 #adminBtn{
   position:fixed;
   top:20px; right:24px;
@@ -40,40 +60,7 @@ body{
   color:var(--pink-deep);
   border-color:var(--pink-deep);
 }
-#favBtn{
-  position:fixed;
-  top:20px; left:24px;
-  z-index:60;
-  font-family:'Jost', sans-serif;
-  font-size:12px;
-  letter-spacing:.05em;
-  border:1px solid var(--beige-deep);
-  background:rgba(255,253,251,.9);
-  backdrop-filter:blur(2px);
-  color:var(--ink-soft);
-  padding:8px 16px;
-  border-radius:20px;
-  cursor:pointer;
-  transition:background .2s, color .2s, border-color .2s;
-}
-#favBtn:hover{ background:var(--beige); color:var(--ink); }
-#favBtn.active{ color:var(--pink-deep); border-color:var(--pink-deep); }
 
-#detailFavBtn{
-  position:absolute;
-  top:16px; right:18px;
-  background:rgba(255,253,251,.85);
-  border:none; border-radius:50%;
-  width:36px; height:36px;
-  display:flex; align-items:center; justify-content:center;
-  cursor:pointer;
-  z-index:6;
-}
-#detailFavIcon path{ transition:fill .15s; }
-#detailFavBtn.faved #detailFavIcon path{
-  fill:var(--pink-deep);
-  stroke:var(--pink-deep);
-}
 header{
   text-align:center;
   padding:64px 24px 32px;
@@ -100,19 +87,22 @@ header p{
   font-size:19px;
 }
 .divider{
-  width:80%;height:2px;
+  width:64px;height:2px;
   background:var(--pink-deep);
   margin:22px auto 0;
   border-radius:2px;
 }
 
+/* --- Search bar + time filter button ------------------------------------ */
 .search-wrap{
-  max-width:380px;
+  max-width:520px;
   margin:26px auto 0;
   padding:0 24px;
+  display:flex;
+  gap:10px;
 }
 .search-wrap input{
-  width:100%;
+  flex:1;
   border:1px solid var(--beige-deep);
   background:var(--white);
   border-radius:24px;
@@ -127,6 +117,22 @@ header p{
   box-shadow:0 0 0 3px rgba(238,200,201,.4);
 }
 .search-wrap input::placeholder{ color:var(--ink-soft); }
+
+#timeFilterBtn{
+  font-family:'Jost', sans-serif;
+  font-size:12.5px;
+  letter-spacing:.03em;
+  white-space:nowrap;
+  border:1px solid var(--beige-deep);
+  background:var(--white);
+  color:var(--ink-soft);
+  padding:0 18px;
+  border-radius:24px;
+  cursor:pointer;
+  transition:background .2s, color .2s, border-color .2s;
+}
+#timeFilterBtn:hover{ background:var(--beige); color:var(--ink); }
+#timeFilterBtn.active{ color:var(--pink-deep); border-color:var(--pink-deep); }
 
 .file-actions{
   display:flex;
@@ -378,7 +384,6 @@ body.is-admin .card:hover .hover-actions{opacity:1;}
   gap:10px;
   margin-top:26px;
 }
-#modal button.actions, #loginModal button.actions{ }
 #modal .actions button, #loginModal .actions button{
   font-family:'Jost', sans-serif;
   font-size:14px;
@@ -405,6 +410,7 @@ body.is-admin .card:hover .hover-actions{opacity:1;}
 }
 #loginError.show{display:block;}
 
+/* --- Recipe detail popup -------------------------------------------------- */
 #detailModal{
   background:var(--white);
   width:100%; max-width:520px;
@@ -414,6 +420,8 @@ body.is-admin .card:hover .hover-actions{opacity:1;}
   box-shadow:0 30px 60px -20px rgba(58,50,44,.4);
   position:relative;
 }
+/* Pictures are intentionally hidden in the popup — !important overrides
+   the inline style set by script.js */
 #detailModal .dImgWrap{
   width:100%;
   aspect-ratio:16/9;
@@ -463,4 +471,21 @@ body.is-admin .card:hover .hover-actions{opacity:1;}
   font-size:18px;
   color:var(--ink-soft); cursor:pointer;
   z-index:5;
+}
+
+/* --- Favorite heart button inside the popup ------------------------------ */
+#detailFavBtn{
+  position:absolute;
+  top:16px; left:18px;
+  background:rgba(255,253,251,.85);
+  border:none; border-radius:50%;
+  width:36px; height:36px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+  z-index:6;
+}
+#detailFavIcon path{ transition:fill .15s; }
+#detailFavBtn.faved #detailFavIcon path{
+  fill:var(--pink-deep);
+  stroke:var(--pink-deep);
 }
