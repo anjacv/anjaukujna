@@ -26,7 +26,7 @@ function toggleFav(id){
 
 // --- Time filter: cycles All -> Short (<20m) -> Medium (20-60m) -> Long (60m+)
 let timeFilter = 'all';
-const timeFilterLabels = { all: 'All times', short: 'Short (<20m)', medium: 'Medium (20–60m)', long: 'Long (60m+)' };
+const timeFilterLabels = { all: 'all', short: 'short', medium: 'medium', long: 'long' };
 const timeFilterOrder = ['all', 'short', 'medium', 'long'];
 
 function parseMinutes(timeStr){
