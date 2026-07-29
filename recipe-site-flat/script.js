@@ -90,30 +90,29 @@ document.getElementById('detailFavBtn').addEventListener('click', ()=>{
   document.getElementById('detailFavBtn').classList.toggle('faved', isFav(currentDetailId));
   if(showingFavoritesOnly) render();
 });
-  document.querySelectorAll('.card').forEach(card=>{
-    card.addEventListener('click', (e)=>{
-      if(e.target.closest('.hover-actions')) return;
-      openDetail(card.getAttribute('data-id'));
-    });
-  });
-  document.querySelectorAll('.edit-btn').forEach(btn=>{
-    btn.addEventListener('click', (e)=>{
-      e.stopPropagation();
-      openModal(e.currentTarget.getAttribute('data-id'));
-    });
-  });
-  document.querySelectorAll('.del-btn').forEach(btn=>{
-    btn.addEventListener('click', async (e)=>{
-      e.stopPropagation();
-      const id = e.currentTarget.getAttribute('data-id');
-      if(!confirm('Delete this recipe?')) return;
-      const res = await apiFetch(`/api/recipes/${id}`, { method: 'DELETE' });
-      if(res && res.ok){
-        recipes = recipes.filter(r=>r.id !== id);
-        render();
-      }
-    });
-  });
+  grid.addEventListener('click', async (e)=>{
+  const editBtn = e.target.closest('.edit-btn');
+  const delBtn = e.target.closest('.del-btn');
+  const card = e.target.closest('.card');
+
+  if(editBtn){
+    openModal(editBtn.getAttribute('data-id'));
+    return;
+  }
+  if(delBtn){
+    const id = delBtn.getAttribute('data-id');
+    if(!confirm('Delete this recipe?')) return;
+    const res = await apiFetch(`/api/recipes/${id}`, { method: 'DELETE' });
+    if(res && res.ok){
+      recipes = recipes.filter(r=>r.id !== id);
+      render();
+    }
+    return;
+  }
+  if(card){
+    openDetail(card.getAttribute('data-id'));
+  }
+});
 }
 
 searchInput.addEventListener('input', (e)=>{
