@@ -75,7 +75,7 @@ header .eyebrow{
 header h1{
   font-family:'Cormorant Garamond', serif;
   font-weight:600;
-  font-size:58px;
+  font-size:48px;
   margin:8px 0 6px;
   letter-spacing:.01em;
 }
@@ -476,7 +476,7 @@ body.is-admin .card:hover .hover-actions{opacity:1;}
 /* --- Favorite heart button inside the popup ------------------------------ */
 #detailFavBtn{
   position:absolute;
-  top:16px; left:18px;
+  top:16px; right:40px;
   background:rgba(255,253,251,.85);
   border:none; border-radius:50%;
   width:36px; height:36px;
