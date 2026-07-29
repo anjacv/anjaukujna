@@ -9,9 +9,8 @@ let editingId = null;
 let pendingPicture = null;
 let searchTerm = '';
 
-// The admin token only lives in sessionStorage — it just keeps the admin
-// signed in if they refresh the page, and clears when the tab is closed.
-// It is NOT how recipes are stored; those live on the server.
+// Favorites live in localStorage — personal to each visitor's browser,
+// not tied to the server, so they never vanish/expire like admin sessions do.
 let favorites = JSON.parse(localStorage.getItem('recipeFavorites') || '[]');
 let showingFavoritesOnly = false;
 let currentDetailId = null;
@@ -24,6 +23,10 @@ function toggleFav(id){
   favorites = isFav(id) ? favorites.filter(f => f !== id) : [...favorites, id];
   saveFavorites();
 }
+
+// The admin token only lives in sessionStorage — it just keeps the admin
+// signed in if they refresh the page, and clears when the tab is closed.
+// It is NOT how recipes are stored; those live on the server.
 let authToken = sessionStorage.getItem('recipeBoxToken') || null;
 
 function esc(s){
@@ -78,19 +81,10 @@ function render(){
     `;
     grid.appendChild(card);
   });
-  document.getElementById('favBtn').addEventListener('click', ()=>{
-  showingFavoritesOnly = !showingFavoritesOnly;
-  document.getElementById('favBtn').classList.toggle('active', showingFavoritesOnly);
-  render();
-});
+}
 
-document.getElementById('detailFavBtn').addEventListener('click', ()=>{
-  if(!currentDetailId) return;
-  toggleFav(currentDetailId);
-  document.getElementById('detailFavBtn').classList.toggle('faved', isFav(currentDetailId));
-  if(showingFavoritesOnly) render();
-});
-  grid.addEventListener('click', async (e)=>{
+// --- Event delegation on the grid (attached ONCE, not inside render) ------
+grid.addEventListener('click', async (e)=>{
   const editBtn = e.target.closest('.edit-btn');
   const delBtn = e.target.closest('.del-btn');
   const card = e.target.closest('.card');
@@ -113,7 +107,20 @@ document.getElementById('detailFavBtn').addEventListener('click', ()=>{
     openDetail(card.getAttribute('data-id'));
   }
 });
-}
+
+// --- Favorites buttons (attached ONCE, not inside render) -----------------
+document.getElementById('favBtn').addEventListener('click', ()=>{
+  showingFavoritesOnly = !showingFavoritesOnly;
+  document.getElementById('favBtn').classList.toggle('active', showingFavoritesOnly);
+  render();
+});
+
+document.getElementById('detailFavBtn').addEventListener('click', ()=>{
+  if(!currentDetailId) return;
+  toggleFav(currentDetailId);
+  document.getElementById('detailFavBtn').classList.toggle('faved', isFav(currentDetailId));
+  if(showingFavoritesOnly) render();
+});
 
 searchInput.addEventListener('input', (e)=>{
   searchTerm = e.target.value;
