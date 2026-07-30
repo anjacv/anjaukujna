@@ -479,7 +479,7 @@ body.is-admin .card:hover .hover-actions{opacity:1;}
   top:16px; right:40px;
   background:rgba(255,253,251,.85);
   border:none; border-radius:50%;
-  width:36px; height:36px;
+  width:36px; height:30px;
   display:flex; align-items:center; justify-content:center;
   cursor:pointer;
   z-index:6;
