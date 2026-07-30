@@ -464,22 +464,23 @@ body.is-admin .card:hover .hover-actions{opacity:1;}
   margin:0;
 }
 #detailClose{
-  position:absolute; top:16px; right:18px;
-  background:rgba(255,253,251,.85);
+  position:absolute; top:16px; right:5px;
+  background: rgba(255, 253, 251, .85);
   border:none; border-radius:50%;
   width:30px;height:30px;
-  font-size:18px;
-  color:var(--ink-soft); cursor:pointer;
+  font-size:23px;
+  color: #ccbebf;
+  cursor:pointer;
   z-index:5;
 }
 
 /* --- Favorite heart button inside the popup ------------------------------ */
 #detailFavBtn{
   position:absolute;
-  top:16px; right:40px;
+  top:13px; right:29px;
   background:rgba(255,253,251,.85);
   border:none; border-radius:50%;
-  width:36px; height:30px;
+  width:40px; height:35px;
   display:flex; align-items:center; justify-content:center;
   cursor:pointer;
   z-index:6;
