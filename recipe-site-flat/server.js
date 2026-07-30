@@ -10,7 +10,7 @@ const DATA_FILE = path.join(__dirname, 'recipes.json');
 // --- Admin credentials -----------------------------------------------
 // Change these if you'd like a different login.
 const ADMIN_USERNAME = 'anja';
-const ADMIN_PASSWORD = '12345678';
+const ADMIN_PASSWORD = 'anja';
 // -----------------------------------------------------------------------
 
 // Valid login tokens live only in server memory. They reset if the
